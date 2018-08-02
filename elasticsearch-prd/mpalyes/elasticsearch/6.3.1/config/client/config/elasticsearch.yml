@@ -1,0 +1,133 @@
+# ======================== Elasticsearch Configuration =========================
+#
+# NOTE: Elasticsearch comes with reasonable defaults for most settings.
+#       Before you set out to tweak and tune the configuration, make sure you
+#       understand what are you trying to accomplish and the consequences.
+#
+# The primary way of configuring a node is via this file. This template lists
+# the most important settings you may want to configure for a production cluster.
+#
+# Please consult the documentation for further information on configuration options:
+# https://www.elastic.co/guide/en/elasticsearch/reference/index.html
+#
+# ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#
+cluster.name: alyes
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#
+node.name: "client-${HOSTNAME}"
+
+node.master: false
+node.data: false
+node.ingest: false
+
+#
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1
+#
+# ----------------------------------- Paths ------------------------------------
+#
+# Path to directory where to store the data (separate multiple locations by comma):
+#
+path.data: /data1/alyes_client,/data2/alyes_client,/data3/alyes_client,/data4/alyes_client,/data5/alyes_client,/data6/alyes_client,/data7/alyes_client,/data8/alyes_client,/data9/alyes_client,/data10/alyes_client,/data11/alyes_client,/data12/alyes_client,/data13/alyes_client,/data14/alyes_client,/data15/alyes_client,/data16/alyes_client,/data17/alyes_client,/data18/alyes_client,/data19/alyes_client,/data20/alyes_client,/data21/alyes_client,/data22/alyes_client,/data23/alyes_client
+
+path.repo: ["/data23/backup"]
+
+#
+# Path to log files:
+#
+path.logs: /data1/log_client
+#
+# ----------------------------------- Memory -----------------------------------
+#
+# Lock the memory on startup:
+#
+bootstrap.memory_lock: true
+#
+# Make sure that the heap size is set to about half the memory available
+# on the system and that the owner of the process is allowed to use this
+# limit.
+#
+# Elasticsearch performs poorly when the system is swapping the memory.
+#
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#
+network.host: "${HOSTNAME}"
+#
+# Set a custom port for HTTP:
+#
+http.port: 19200
+
+transport.tcp.port: 19210
+#
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
+#
+#discovery.zen.ping.unicast.hosts: ["host1", "host2"]
+#
+# Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
+#
+discovery.zen.minimum_master_nodes: 2
+
+discovery.zen.ping.unicast.hosts: ["mpalyes01:19010", "mpalyes02:19010", "mpalyes03:19010"]
+
+discovery.zen.fd.ping_timeout: 5s
+
+bootstrap.system_call_filter: false
+
+#
+# For more information, consult the zen discovery module documentation.
+#
+# ---------------------------------- Gateway -----------------------------------
+#
+# Block initial recovery after a full cluster restart until N nodes are started:
+#
+#gateway.recover_after_nodes: 3
+#
+# For more information, consult the gateway module documentation.
+#
+# ---------------------------------- Various -----------------------------------
+#
+# Require explicit names when deleting indices:
+#
+#action.destructive_requires_name: true
+
+node.max_local_storage_nodes: 50
+
+indices.memory.index_buffer_size: 40%
+indices.memory.max_index_buffer_size: 8192mb
+
+#Disable X-pack Security
+#xpack.security.enabled: false
+#xpack.ml.enabled: false
+
+######## Start Search Guard Demo Configuration ########
+#searchguard.ssl.transport.keystore_filepath: alyes_keystore.jks
+#searchguard.ssl.transport.truststore_filepath: alyes_truststore.jks
+#searchguard.ssl.transport.enforce_hostname_verification: false
+#searchguard.ssl.transport.keystore_password: melon1234234!
+#searchguard.ssl.transport.truststore_password: melon1234234!
+#searchguard.ssl.http.enabled: true
+#searchguard.ssl.http.keystore_filepath: alyes_keystore.jks
+#searchguard.ssl.http.truststore_filepath: alyes_truststore.jks
+#searchguard.ssl.http.keystore_password: melon1234234!
+#searchguard.ssl.http.truststore_password: melon1234234!
+#searchguard.authcz.admin_dn:
+#  - CN=es_client,OU=client,O=client,L=Test,C=DE
+#  - CN=nifi_client,OU=client,O=client,L=Test,C=DE
+
+######## End Search Guard Demo Configuration ########
+
+network.breaker.inflight_requests.limit: 7% # default 100% to 7%

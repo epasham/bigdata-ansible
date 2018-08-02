@@ -1,0 +1,76 @@
+- name: install-elasticsearch
+  hosts: localhost
+  vars:
+    es_binary_path: ~/elasticsearch
+    es_version: 6.3.1
+
+  tasks:
+    - name : create elasticsearch directory
+      file:
+        path:  "{{ es_binary_path }}"
+        state: directory
+
+    - name : create elasticsearch binary directory
+      file:
+        path:  "{{ es_binary_path }}/binary"
+        state: directory
+
+    - name : delete elasticsearch directory
+      file:
+        path: "{{ es_binary_path }}/elasticsearch-{{es_version}}"
+        state: absent
+
+    - name : delete elasticsearch directory
+      command: "rm -rf {{ es_binary_path }}/elasticsearch-{{es_version}}-{{item}}"
+      with_items:
+        - data
+        - client
+        - master
+
+    - name : delete script directory
+      command: "rm -rf {{ es_binary_path }}/script"
+
+    - name: download official es binary
+      get_url:
+        url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{es_version}}.tar.gz"
+        dest: "{{ es_binary_path }}/binary"
+        mode: 0755
+        force: no
+
+    - name : extract elasticsearch binary
+      unarchive:
+        src: "{{es_binary_path}}/binary/elasticsearch-{{es_version}}.tar.gz"
+        dest: "{{ es_binary_path }}"
+
+    - name: "copy es dir"
+      command: "cp -r {{ es_binary_path }}/elasticsearch-{{es_version}} {{ es_binary_path }}/elasticsearch-{{es_version}}-{{item}}"
+      with_items:
+        - master
+        - data
+        - data2
+        - client
+
+    - name: "synchronize elasticsearch config"
+      synchronize:
+        src: "../elasticsearch/{{es_version}}/config/{{item}}/config"
+        dest: "{{ es_binary_path }}/elasticsearch-{{es_version}}-{{item}}/"
+      with_items:
+              - master
+              - data
+              - data2
+              - client
+
+    - name: "synchronize elasticsearch plugins"
+      synchronize:
+        src: "../elasticsearch/{{es_version}}/plugins/"
+        dest: "{{ es_binary_path }}/elasticsearch-{{es_version}}-{{item}}/plugins/"
+      with_items:
+              - master
+              - data
+              - data2
+              - client
+
+    - name: "synchronize script"
+      synchronize:
+        src: "../script"
+        dest: "{{ es_binary_path }}/"

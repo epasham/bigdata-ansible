@@ -1,0 +1,90 @@
+---
+- set_fact:
+      outer_item: "{{ item }}"
+
+- name: ensure python-httplib2 is installed
+  yum: name=python-httplib2 state=present
+
+- name: check current version
+  uri:
+    url: "http://{{es_master_url}}:{{ es_master_http_port }}"
+    method: GET
+  register: version_found
+  retries: 10
+  delay: 10
+
+- name: Display Current Elasticsearch Version
+  debug: var=version_found.json.version.number
+
+- name: Disable shard allocation for the cluster
+  uri:
+    url: 'http://{{es_master_url}}:{{ es_master_http_port }}/_cluster/settings'
+    method: PUT
+    body: "{{ es_disable_allocation }}"
+    body_format: json
+  register: response
+#  until: "response.json.transient.cluster.routing.allocation.enabled == none"
+  until: "response['status']|default(0) == 200"
+  retries: 30
+  delay: 120
+
+#- name: Synced Flush
+#  uri:
+#    url: 'http://{{es_master_url}}:{{ es_master_http_port }}/_flush/synced'
+#    method: POST
+#  register: response
+#  until: "response.json._shards.failed == 0"
+#  retries: 30
+#  delay: 30
+
+- debug:
+    msg: "Shutdown {{outer_item}}"
+
+- name: Shutdown elasticsearch node
+  script: "{{es_path}}/script/stop-remote-data.sh {{ssh_user}}@{{outer_item}}"
+  ignore_errors: yes
+
+- name: Wait for elasticsearch node to come back up
+  pause:
+    seconds: 30
+
+- name: Wait for all shards to be reallocated
+  uri:
+    url: "http://{{es_master_url}}:{{ es_master_http_port }}/_cluster/health"
+    method: GET
+  register: response
+  until: "response.json.relocating_shards == 0"
+  retries: 10
+  delay: 30
+
+- name: add permission to elasticsearch start script
+  file:
+    path: "{{es_path}}/script/start-remote-data.sh"
+    mode: 0755
+
+- debug:
+    msg: "starting {{outer_item}}"
+
+- name: Start elasticsearch
+  script: "{{es_path}}/script/start-remote-data.sh {{ssh_user}}@{{outer_item}}"
+
+- name: Enable shard allocation for the cluster
+  uri:
+    url: "http://{{es_master_url}}:{{ es_master_http_port }}/_cluster/settings"
+    method: PUT
+    body: '{{ es_enable_allocation }}'
+    body_format: json
+  register: response
+#  until: "response.json.transient.cluster.routing.allocation.enabled == all"
+  until: "response['status']|default(0) == 200"
+  retries: 30
+  delay: 120
+
+- name: Wait for cluster health to return to yellow or green
+  uri:
+    url: "http://{{es_master_url}}:{{ es_master_http_port }}/_cluster/health"
+    method: GET
+  register: response
+  until: "response.json.status == 'green'"
+  retries: 360
+  delay: 30

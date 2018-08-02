@@ -1,0 +1,2 @@
+#!/bin/bash
+~/elasticsearch/elasticsearch-master/plugins/search-guard-5/tools/sgadmin.sh -arc -cn alyes -h mpalyes01 -p 19110 -cd ~/elasticsearch/elasticsearch-master/plugins/search-guard-5/sgconfig -cn searchguard_demo -ks ~/elasticsearch/elasticsearch-master/config/kirk.jks -ts ~/elasticsearch/elasticsearch-master/config/truststore.jks -nhnv

@@ -1,0 +1,16 @@
+- name: "inner_rolling_start"
+
+  hosts: all
+  vars:
+      es_disable_allocation:  '{"transient":{"cluster.routing.allocation.enable":"none"}}'
+      es_enable_allocation: '{"transient":{"cluster.routing.allocation.enable": "all"}}'
+  tasks:
+    - debug:
+        msg: task1
+
+    - include_tasks: inner.yml
+      with_items:
+        - 1
+        - 2
+    - debug:
+        msg: task10

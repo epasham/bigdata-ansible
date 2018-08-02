@@ -1,0 +1,78 @@
+- name: install-atlas
+  hosts: localhost
+  vars:
+    atlas_binary_path: ~/atlas
+    atlas_version: 2.0.0-SNAPSHOT
+
+  tasks:
+    - name : create atlas directory
+      file:
+        path:  "{{ atlas_binary_path }}"
+        state: directory
+
+    - name : delete atlas binary directory
+      file:
+        path:  "{{ atlas_binary_path }}/binary"
+        state: absent
+
+    - name : create atlas binary directory
+      file:
+        path:  "{{ atlas_binary_path }}/binary"
+        state: directory
+
+    - name : delete atlas directory
+      command: "rm -rf {{ atlas_binary_path }}/apache-atlas-{{atlas_version}}"
+
+    - name : delete script directory
+      command: "rm -rf {{ atlas_binary_path }}/script"
+
+    - name: "copy atlas dir"
+      synchronize:
+        src: "../binary/apache-atlas-{{atlas_version}}-bin.tar.gz"
+        dest: "{{ atlas_binary_path }}/binary"
+
+    - name : extract atlas binary
+      unarchive:
+        src: "{{atlas_binary_path}}/binary/apache-atlas-{{atlas_version}}-bin.tar.gz"
+        dest: "{{ atlas_binary_path }}"
+
+    - name: "synchronize atlas config"
+      synchronize:
+        src: "../atlas/{{atlas_version}}/conf/"
+        dest: "{{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/conf"
+
+    - name: "synchronize atlas bin"
+      synchronize:
+        src: "../atlas/{{atlas_version}}/bin/"
+        dest: "{{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/bin"
+
+    - name : replicate atlas.war
+      command: "cp {{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/server/webapp/atlas.war {{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/server/webapp/atlas.zip"
+
+    - name : create atlas.war extraction target directory
+      file:
+        path:  "{{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/server/webapp/atlas"
+        state: directory
+
+    - name : extract atlas.war
+      unarchive:
+        src: "{{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/server/webapp/atlas.zip"
+        dest: "{{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/server/webapp/atlas"
+
+    - name : copy jersey jars
+      command: "cp {{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/server/webapp/atlas/WEB-INF/lib/jersey-client-1.19.jar {{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/hook/hive/atlas-hive-plugin-impl/"
+
+    - name : delete atlas.war extraction target directory
+      file:
+        path:  "{{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/server/webapp/atlas"
+        state: absent
+
+    - name : delete atlas.war extraction target
+      file:
+        path:  "{{ atlas_binary_path }}/apache-atlas-{{atlas_version}}/server/webapp/atlas.zip"
+        state: absent
+
+    - name: "synchronize script"
+      synchronize:
+        src: "../script"
+        dest: "{{ atlas_binary_path }}/"

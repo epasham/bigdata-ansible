@@ -1,0 +1,33 @@
+- name: install-kibana
+  hosts: all
+  vars:
+    es_binary_path: ~/elasticsearch
+    kibana_version: 6.3.1
+
+  tasks:
+    - name: download kibana binary
+      get_url:
+        url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{kibana_version}}-linux-x86_64.tar.gz"
+        dest: "{{es_binary_path}}/binary"
+        mode: 0755
+        force: no
+
+    - name : delete kibana directory
+      file:
+        path: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64"
+        state: absent
+
+    - name : extract kibana binary
+      unarchive:
+        src: "{{es_binary_path}}/binary/kibana-{{kibana_version}}-linux-x86_64.tar.gz"
+        dest: "{{es_binary_path}}"
+
+    - name: "synchronize kibana config"
+      synchronize:
+        src: ../kibana/{{kibana_version}}/config
+        dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/"
+
+#    - name: "extract kibana plugins"
+#      unarchive:
+#        src: ../kibana/{{kibana_version}}/kibana-{{kibana_version}}-plugins.tar.gz
+#        dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/plugins"

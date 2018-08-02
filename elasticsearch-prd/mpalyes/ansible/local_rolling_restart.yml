@@ -1,0 +1,89 @@
+# Ansible
+# Rolling Upgrade of Elasticsearch
+# author: Kwangsik Lee
+# modified from https://github.com/ekhoinc/ansible-examples/blob/master/elasticsearch-rolling-upgrade.yml
+# tested with Ansible 2.7.6
+
+---
+- name: Elasticsearch rolling upgrade
+  # This is tested on melon.com with 14 nodes in a cluster.
+  # You should Modify hosts to match your inventory group strategy.
+  # such as:
+  # hosts: tag_Services_elasticsearch:&tag_Environment_production
+  hosts: localhost
+  serial: 1
+
+  vars:
+    es_disable_allocation:  '{"transient":{"cluster.routing.allocation.enable":"none"}}'
+    es_enable_allocation: '{"transient":{"cluster.routing.allocation.enable": "all"}}'
+    es_path: '/home/hadoop/elasticsearch/'
+    es_master_url: mpalyes01
+    es_master_http_port: 19000
+    es_master_transport_port: 19010
+    es_data_transport_port: 19110
+    es_version: 5.5.0
+
+  tasks:
+      # the ansible the uri action needs httplib2
+#      # you should replace yum to apt if you use Ubuntu.
+#    - name: ensure python-httplib2 is installed
+#      yum: name=python-httplib2 state=present
+#
+#    - name: check current version
+#      uri:
+#        url: "http://{{es_master_url}}:{{ es_master_http_port }}"
+#        method: GET
+#      register: version_found
+#      retries: 10
+#      delay: 10
+#
+#    - name: Display Current Elasticsearch Version
+#      debug: var=version_found.json.version.number
+#
+#    - name: Disable shard allocation for the cluster
+#      uri:
+#        url: 'http://{{es_master_url}}:{{ es_master_http_port }}/_cluster/settings'
+#        method: PUT
+#        body: "{{ es_disable_allocation }}"
+#        body_format: json
+#
+#    - name: Shutdown elasticsearch node
+#      script: "{{es_path}}/script/stop-daemon.sh data"
+#      ignore_errors: yes
+#
+#    - name: Wait for all shards to be reallocated
+#      uri:
+#        url: "http://{{es_master_url}}:{{ es_master_http_port }}/_cluster/health"
+#        method: GET
+#      register: response
+#      until: "response.json.relocating_shards == 0"
+#      retries: 10
+#      delay: 30
+
+    - name: Start elasticsearch
+      script: "{{es_path}}/script/start-daemon.sh data"
+
+#    - name: Wait for elasticsearch node to come back up
+#      wait_for: "{{ es_data_transport_port }} delay=60"
+
+#    - name: Wait for cluster health to return to yellow or green
+#      uri:
+#        url: "http://{{es_master_url}}:{{ es_master_http_port }}/_cluster/health"
+#        method: GET
+#      register: response
+#      until: "response.json.status == 'green'"
+#      retries: 50
+#      delay: 30
+#
+#    - name: Enable shard allocation for the cluster
+#      uri:
+#        url: "http://{{es_master_url}}:{{ es_master_http_port }}/_cluster/settings"
+#        method: PUT
+#        body: '{{ es_enable_allocation }}'
+#        body_format: json
+#      register: response
+#      # next line is boolean not string, so no quotes around true
+#      # use python truthiness
+#      until: "response.json.acknowledged == true"
+#      retries: 5
+#      delay: 30

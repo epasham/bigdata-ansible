@@ -1,0 +1,41 @@
+# Ansible
+# Rolling Restart of Elasticsearch
+# author: Kwangsik Lee(lks21c@gmail.com)
+# modified from https://github.com/ekhoinc/ansible-examples/blob/master/elasticsearch-rolling-upgrade.yml
+# tested with Ansible 2.4.3 with ES 5.5.0 on Centos7
+
+- name: "inner_rolling_start"
+
+  # This is tested on melon.com with 14 nodes in a cluster.
+  # You should Modify hosts to match your inventory group strategy.
+  # such as:
+  # hosts: tag_Services_elasticsearch:&tag_Environment_production
+  hosts: localhost
+  # Below enables running playbook on hosts sequentially.
+  serial: 1
+
+  vars:
+    es_disable_allocation:  '{"transient":{"cluster.routing.allocation.enable":"none"}}'
+    es_enable_allocation: '{"transient":{"cluster.routing.allocation.enable": "all"}}'
+    es_path: '/home/upsadm/elasticsearch'
+    es_master_url: mpalyes01
+    es_master_http_port: 19000
+    ssh_user: hadoop
+
+  tasks:
+    - debug:
+        msg: main task
+
+    - include_tasks: inner_rolling_start.yml
+      with_items:
+        - mpalyes02
+        - mpalyes03
+        - mpalyes04
+        - mpalyes05
+        - mpalyes06
+        - mpalyes07
+        - mpalyes08
+        - mpalyes09
+        - mpalyes12
+        - mpalyes13
+        - mpalyes14
