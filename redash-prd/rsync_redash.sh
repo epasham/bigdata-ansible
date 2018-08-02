@@ -4,8 +4,6 @@ echo ""
 echo ""
 echo "Redash BINARY SYNC START-------------------------------------------------------------------------"
 
-. script/env.sh
-
 for nodename in mpredash
 do
     echo "Redash SYNC in $nodename -------------------------------------------------------------------------"
