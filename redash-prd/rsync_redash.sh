@@ -6,7 +6,7 @@ echo "Redash BINARY SYNC START--------------------------------------------------
 
 . script/env.sh
 
-for nodename in mpredash mpredash02
+for nodename in mpredash
 do
     echo "Redash SYNC in $nodename -------------------------------------------------------------------------"
     rsync -rv -e ssh --delete script suser@$nodename:/home/suser/redash
