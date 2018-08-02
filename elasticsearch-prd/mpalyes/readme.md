@@ -9,10 +9,11 @@
 
 ## Deploy Kibana
     
-    
+    # ... in the mpalyes directory
     $ sh make_kibana_binary.sh
     $ sh rsync_kibana.sh
     
 ## Rolling Restart/Upgrade
 
+    # ... in the mpalyes directory
     $ sh rolling_restart.sh
