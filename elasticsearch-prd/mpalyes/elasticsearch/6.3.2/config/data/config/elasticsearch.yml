@@ -118,10 +118,9 @@ indices.requests.cache.size: 10%
 
 #Disable X-pack Security
 xpack.security.enabled: false
-#xpack.ml.enabled: false
+xpack.ml.enabled: false
 
 #
-#xpack.ml.enabled: false
 ######## Start Search Guard Demo Configuration ########
 #searchguard.ssl.transport.keystore_filepath: alyes_keystore.jks
 #searchguard.ssl.transport.truststore_filepath: alyes_truststore.jks
