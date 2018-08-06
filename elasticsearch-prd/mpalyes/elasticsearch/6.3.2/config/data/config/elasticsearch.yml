@@ -115,7 +115,7 @@ indices.requests.cache.size: 10%
 #        queue_size: 70
 
 #Disable X-pack Security
-#xpack.security.enabled: false
+xpack.security.enabled: false
 #xpack.ml.enabled: false
 
 #
