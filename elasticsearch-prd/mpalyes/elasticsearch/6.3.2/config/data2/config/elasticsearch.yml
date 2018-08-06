@@ -118,24 +118,6 @@ indices.requests.cache.size: 10%
 xpack.security.enabled: false
 xpack.ml.enabled: false
 
-#
-######## Start Search Guard Demo Configuration ########
-#searchguard.ssl.transport.keystore_filepath: alyes_keystore.jks
-#searchguard.ssl.transport.truststore_filepath: alyes_truststore.jks
-#searchguard.ssl.transport.enforce_hostname_verification: false
-#searchguard.ssl.transport.keystore_password: melon1234234!
-#searchguard.ssl.transport.truststore_password: melon1234234!
-#searchguard.ssl.http.enabled: true
-#searchguard.ssl.http.keystore_filepath: alyes_keystore.jks
-#searchguard.ssl.http.truststore_filepath: alyes_truststore.jks
-#searchguard.ssl.http.keystore_password: melon1234234!
-#searchguard.ssl.http.truststore_password: melon1234234!
-#searchguard.authcz.admin_dn:
-#  - CN=es_client,OU=client,O=client,L=Test,C=DE
-#  - CN=nifi_client,OU=client,O=client,L=Test,C=DE
-
-######## End Search Guard Demo Configuration ########
-
 cluster.routing.allocation.node_concurrent_recoveries: 20
 cluster.routing.allocation.node_initial_primaries_recoveries: 40
 

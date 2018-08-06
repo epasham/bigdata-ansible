@@ -113,21 +113,4 @@ indices.memory.max_index_buffer_size: 8192mb
 xpack.security.enabled: false
 xpack.ml.enabled: false
 
-######## Start Search Guard Demo Configuration ########
-#searchguard.ssl.transport.keystore_filepath: alyes_keystore.jks
-#searchguard.ssl.transport.truststore_filepath: alyes_truststore.jks
-#searchguard.ssl.transport.enforce_hostname_verification: false
-#searchguard.ssl.transport.keystore_password: melon1234234!
-#searchguard.ssl.transport.truststore_password: melon1234234!
-#searchguard.ssl.http.enabled: true
-#searchguard.ssl.http.keystore_filepath: alyes_keystore.jks
-#searchguard.ssl.http.truststore_filepath: alyes_truststore.jks
-#searchguard.ssl.http.keystore_password: melon1234234!
-#searchguard.ssl.http.truststore_password: melon1234234!
-#searchguard.authcz.admin_dn:
-#  - CN=es_client,OU=client,O=client,L=Test,C=DE
-#  - CN=nifi_client,OU=client,O=client,L=Test,C=DE
-
-######## End Search Guard Demo Configuration ########
-
 network.breaker.inflight_requests.limit: 7% # default 100% to 7%
