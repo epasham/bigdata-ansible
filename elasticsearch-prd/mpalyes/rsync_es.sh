@@ -4,6 +4,8 @@ echo ""
 echo ""
 echo "ES ALY BINARY SYNC START-------------------------------------------------------------------------"
 
+. script/env.sh
+
 for nodename in mpalyes01 mpalyes02 mpalyes03 mpalyes04 mpalyes05 mpalyes06 mpalyes07 mpalyes08 mpalyes09 mpalyes10 mpalyes11 mpalyes12 mpalyes13 mpalyes14
 do
     echo "ES ALY BINARY SYNC es in $nodename -------------------------------------------------------------------------"
