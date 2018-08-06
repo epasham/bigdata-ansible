@@ -81,8 +81,6 @@ transport.tcp.port: 19310
 #
 discovery.zen.minimum_master_nodes: 2
 
-discovery.zen.publish_timeout: 0
-
 discovery.zen.ping.unicast.hosts: ["mpalyes01:19010", "mpalyes02:19010", "mpalyes03:19010"]
 
 bootstrap.system_call_filter: false
