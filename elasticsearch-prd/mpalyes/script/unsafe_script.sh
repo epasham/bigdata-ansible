@@ -8,5 +8,5 @@ for nodename in data1 data2 data3 data4 data5 data6 data7 data8 data9 data10 dat
 do
     echo "run script in $nodename -------------------------------------------------------------------------"
     rm -rf /$nodename/alyes_master/nodes/0
-    cp -r /$nodename/alyes_master/nodes/1 /$nodename/alyes_master/nodes/0
+    mv /$nodename/alyes_master/nodes/1 /$nodename/alyes_master/nodes/0
 done
