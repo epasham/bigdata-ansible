@@ -148,8 +148,6 @@ indices.breaker.fielddata.limit: 7% #default 60% to 7%
 indices.breaker.request.limit: 15% # default 60% to 15%
 network.breaker.inflight_requests.limit: 7% # default 100% to 7%
 
-indices.store.throttle.type: none
-
 #index.merge.scheduler.max_thread_count: 1 # default Math.max(1, Math.min(4, Runtime.getRuntime().availableProcessors() / 2)) to 1
 #
 #index.translog.durability: async # default request to async
