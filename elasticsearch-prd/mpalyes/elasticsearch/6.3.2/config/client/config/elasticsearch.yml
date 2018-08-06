@@ -85,6 +85,8 @@ discovery.zen.ping.unicast.hosts: ["mpalyes01:19010", "mpalyes02:19010", "mpalye
 
 discovery.zen.fd.ping_timeout: 5s
 
+discovery.zen.publish_timeout: 0
+
 bootstrap.system_call_filter: false
 
 #
