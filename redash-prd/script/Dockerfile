@@ -1,6 +1,6 @@
 FROM redash/base:latest
 
-COPY .. ./
+COPY . ./
 RUN apt-get update
 RUN apt-get install -y libaio1 libaio-dev unixodbc wget alien locales
 RUN wget http://hydra01.ipdisk.co.kr/wordpress/wp-content/uploads/oracle/oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm

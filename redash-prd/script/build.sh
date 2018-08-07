@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export REDASH_VERSION=4.0.1
+export REDASH_VERSION=5.0.0-beta
 
 rm -rf build
 git clone https://github.com/getredash/redash build
