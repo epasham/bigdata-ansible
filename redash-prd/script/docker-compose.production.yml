@@ -45,7 +45,7 @@ services:
   postgres:
     image: postgres:9.5.6-alpine
     volumes:
-      - /opt/postgres-data:/var/lib/postgresql/data
+      - /opt/postgres-data:/var/lib/postgresql/data # left path is hosts's directory.
     restart: always
   nginx:
     image: redash/nginx:latest
