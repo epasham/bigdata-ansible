@@ -53,7 +53,7 @@ filebeat.inputs:
   # for Java Stack Traces or C-Line Continuation
 
   # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
-  #multiline.pattern: ^\[
+  multiline.pattern: ^\[
 
   # Defines if the pattern set under pattern should be negated or not. Default is false.
   #multiline.negate: false
