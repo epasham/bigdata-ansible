@@ -26,6 +26,7 @@ filebeat.inputs:
   # Paths that should be crawled and fetched. Glob based paths.
   paths:
     - /data1/log_client/alyes.log
+    - /data1/log_kibana
 
   ignore_older: 5m
 

@@ -16,7 +16,7 @@ done
 for nodename in mpalyes10 mpalyes11
 do
     echo "Filebeat BINARY SYNC es in $nodename -------------------------------------------------------------------------"
-    rsync -rv -e ssh --delete ~/filebeat/filebeat-$FILEBEAT_VERSION-linux-x86_64-es-client root@$nodename:/root/filebeat
+    rsync -rv -e ssh --delete ~/filebeat/filebeat-$FILEBEAT_VERSION-linux-x86_64-es-client-and-kibana root@$nodename:/root/filebeat
     rsync -rv -e ssh --delete ~/filebeat/script root@$nodename:/root/filebeat
 done
 
