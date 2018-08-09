@@ -20,9 +20,6 @@
         path: "{{ filebeat_binary_path }}/filebeat-{{filebeat_version}}"
         state: absent
 
-    - name : delete script directory
-      command: "rm -rf {{ filebeat_binary_path }}/script"
-
     - name: download official filebeat binary
       get_url:
         url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{filebeat_version}}-linux-x86_64.tar.gz"
@@ -35,7 +32,16 @@
         src: "{{filebeat_binary_path}}/binary/filebeat-{{filebeat_version}}-linux-x86_64.tar.gz"
         dest: "{{ filebeat_binary_path }}"
 
+    - name: "copy filebeat dir"
+      command: "cp -r {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64 {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}"
+      with_items:
+      - master
+      - data
+      - client
+
     - name: "synchronize filebeat config"
       synchronize:
-        src: "../filebeat/{{filebeat_version}}/filebeat.yml"
-        dest: "{{ filebeat_binary_path }}/filebeat-{{filebeat_version}}/filebeat.yml"
+        src: "../filebeat/{{filebeat_version}}/{{item}}/filebeat.yml"
+        dest: "{{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}/filebeat.yml"
+      with_items:
+      - master
