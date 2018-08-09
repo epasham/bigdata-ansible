@@ -35,18 +35,18 @@
     - name: "copy filebeat dir"
       command: "cp -r {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64 {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}"
       with_items:
-      - master
-      - master-and-data
-      - client
+      - es-master
+      - es-master-and-data
+      - es-client
 
     - name: "synchronize filebeat config"
       synchronize:
         src: "../filebeat/{{filebeat_version}}/{{item}}/filebeat.yml"
         dest: "{{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}/filebeat.yml"
       with_items:
-      - master
-      - master-and-data
-      - client
+      - es-master
+      - es-master-and-data
+      - es-client
 
     - name: "synchronize script"
       synchronize:
