@@ -45,3 +45,5 @@
         dest: "{{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}/filebeat.yml"
       with_items:
       - master
+      - data
+      - client
