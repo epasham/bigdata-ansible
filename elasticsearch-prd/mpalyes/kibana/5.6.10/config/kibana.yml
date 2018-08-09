@@ -112,8 +112,8 @@ server.host: "0.0.0.0"
 
 pid.file: /home/hadoop/elasticsearch/pid/kibana.pid
 
-#xpack.security.enabled: false
-#xpack.ml.enabled: false
+xpack.security.enabled: false
+xpack.ml.enabled: false
 
 # Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable.
 elasticsearch.shardTimeout: 300000
