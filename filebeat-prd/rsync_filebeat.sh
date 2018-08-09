@@ -9,7 +9,7 @@ echo "Filebeat BINARY SYNC START------------------------------------------------
 for nodename in mpalyes01 mpalyes02 mpalyes03
 do
     echo "Filebeat BINARY SYNC es in $nodename -------------------------------------------------------------------------"
-    rsync -rv -e ssh --delete ~/filebeat/filebeat-$ES_VERSION-master root@$nodename:/home/root/filebeat
+    rsync -rv -e ssh --delete ~/filebeat/filebeat-$ES_VERSION-linux-x86_64-master root@$nodename:/home/root/filebeat
     rsync -rv -e ssh --delete ~/filebeat/script root@$nodename:/home/root/filebeat
 done
 
