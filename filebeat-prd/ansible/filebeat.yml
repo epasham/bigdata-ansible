@@ -36,8 +36,8 @@
       command: "cp -r {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64 {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}"
       with_items:
       - master
-#      - data
-#      - client
+      - master-and-data
+      - client
 
     - name: "synchronize filebeat config"
       synchronize:
@@ -45,8 +45,8 @@
         dest: "{{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}/filebeat.yml"
       with_items:
       - master
-#      - data
-#      - client
+      - master-and-data
+      - client
 
     - name: "synchronize script"
       synchronize:

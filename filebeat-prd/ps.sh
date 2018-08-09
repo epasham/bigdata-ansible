@@ -5,7 +5,7 @@ bin=`cd "$bin"; pwd`
 export SERVERLIST="${bin}/serverlist/serverlist_$1"
 
 for server in `cat "$SERVERLIST"`; do
-  ssh $server "sh /root/filebeat/script/start.sh"
+  ssh $server "ps -ef | grep filebeat"
 done
 
 wait
