@@ -27,4 +27,11 @@ do
     rsync -rv -e ssh --delete ~/filebeat/script root@$nodename:/root/filebeat
 done
 
+for nodename in mpcollect03
+do
+    echo "Filebeat BINARY SYNC es in $nodename -------------------------------------------------------------------------"
+    rsync -rv -e ssh --delete ~/filebeat/filebeat-$ES_VERSION-linux-x86_64-nifi root@$nodename:/root/filebeat
+    rsync -rv -e ssh --delete ~/filebeat/script root@$nodename:/root/filebeat
+done
+
 echo "-------------------------------------------------------------------end  `date +%Y/%m/%d-%H:%M`"
