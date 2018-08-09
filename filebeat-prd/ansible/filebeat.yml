@@ -38,6 +38,7 @@
       - es-master
       - es-master-and-data
       - es-client
+      - nifi
 
     - name: "synchronize filebeat config"
       synchronize:
@@ -47,6 +48,7 @@
       - es-master
       - es-master-and-data
       - es-client
+      - nifi
 
     - name: "synchronize script"
       synchronize:
