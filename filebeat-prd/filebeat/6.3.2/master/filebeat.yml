@@ -27,6 +27,8 @@ filebeat.inputs:
   paths:
     - /data1/log_master/alyes.log
 
+  ignore_older: 5m
+
   # Exclude lines. A list of regular expressions to match. It drops the lines that are
   # matching any regular expression from the list.
   #exclude_lines: ['^DBG']
