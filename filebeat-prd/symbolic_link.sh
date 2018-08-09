@@ -2,7 +2,7 @@
 
 bin=`dirname "$this"`
 bin=`cd "$bin"; pwd`
-export SERVERLIST="${bin}/serverlist/serverlist_$1"
+export SERVERLIST="${bin}/serverlist/serverlist-$1"
 
 . ../elasticsearch-prd/mpalyes/script/env.sh
 
