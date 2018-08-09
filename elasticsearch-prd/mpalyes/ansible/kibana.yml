@@ -27,7 +27,14 @@
         src: ../kibana/{{kibana_version}}/config
         dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/"
 
+    - name: download x-pack binary
+      get_url:
+        url: "https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-{{kibana_version}}.zip"
+        dest: "{{es_binary_path}}/binary"
+        mode: 0755
+        force: no
+
     - name: "extract kibana plugins"
       unarchive:
-        src: ../kibana/{{kibana_version}}/kibana-{{kibana_version}}-plugins.tar.gz
+        src: "{{es_binary_path}}/binary/x-pack-{{kibana_version}}.zip"
         dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/plugins"
