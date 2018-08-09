@@ -188,3 +188,5 @@ output.elasticsearch:
 # have the Elasticsearch output configured, you can simply uncomment the
 # following line.
 #xpack.monitoring.elasticsearch:
+
+logging.metrics.enabled: false
