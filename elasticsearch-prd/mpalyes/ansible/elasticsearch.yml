@@ -2,7 +2,7 @@
   hosts: localhost
   vars:
     es_binary_path: ~/elasticsearch
-    es_version: 5.6.10
+    es_version: 6.3.2
 
   tasks:
     - name : create elasticsearch directory
