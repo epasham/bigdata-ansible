@@ -5,19 +5,24 @@
     kibana_version: 5.6.10
 
   tasks:
-    - name: download kibana binary
+    - name : "delete binary directory"
+      file:
+        path: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64"
+        state: absent
+
+    - name: "download kibana binary"
       get_url:
         url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{kibana_version}}-linux-x86_64.tar.gz"
         dest: "{{es_binary_path}}/binary"
         mode: 0755
         force: no
 
-    - name : delete kibana directory
+    - name : "delete kibana directory"
       file:
         path: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64"
         state: absent
 
-    - name : extract kibana binary
+    - name : "extract kibana binary"
       unarchive:
         src: "{{es_binary_path}}/binary/kibana-{{kibana_version}}-linux-x86_64.tar.gz"
         dest: "{{es_binary_path}}"
@@ -27,7 +32,7 @@
         src: ../kibana/{{kibana_version}}/config
         dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/"
 
-    - name: download x-pack binary
+    - name: "download x-pack binary"
       get_url:
         url: "https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-{{kibana_version}}.zip"
         dest: "{{es_binary_path}}/binary"
@@ -37,4 +42,9 @@
     - name: "extract kibana plugins"
       unarchive:
         src: "{{es_binary_path}}/binary/x-pack-{{kibana_version}}.zip"
-        dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/plugins"
+        dest: "{{es_binary_path}}/binary/"
+
+    - name: "synchronize kibana plugin"
+      synchronize:
+        src: "{{es_binary_path}}/binary/kibana/"
+        dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/plugins/"
