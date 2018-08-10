@@ -1,7 +1,0 @@
----
-- set_fact:
-    outer_item: "{{ item }}"
-
-- debug:
-    msg: "Outer include: {{outer_item}} {{es_disable_allocation}}"
-
