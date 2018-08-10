@@ -6,7 +6,7 @@ bin=`cd "$bin"; pwd`
 
 export HOSTLIST="${bin}/serverlist"
 
-. script/env.sh
+. env.sh
 
 for master in `cat "$HOSTLIST"`; do
   ssh $master "rm -rf ~/elasticsearch/elasticsearch-data"
