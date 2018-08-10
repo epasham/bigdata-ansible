@@ -103,7 +103,7 @@
 elasticsearch.username: "kibanaserver"
 elasticsearch.password: "kibanaserver"
 
-elasticsearch.url: "http://127.0.0.1:19200"
+elasticsearch.url: "http://${HOSTNAME}:19200"
 
 elasticsearch.ssl.verificationMode: none
 
