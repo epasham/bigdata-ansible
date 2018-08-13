@@ -16,7 +16,7 @@ echo "Metricbeat BINARY SYNC START----------------------------------------------
 for nodename in mpcollect01 mpcollect02 mpcollect03
 do
     echo "Metricbeat BINARY SYNC in $nodename -------------------------------------------------------------------------"
-    rsync -rv -e ssh --delete ~/metricbeat/metricbeat-$metricbeat_VERSION-linux-x86_64-system root@$nodename:/root/metricbeat
+    rsync -rv -e ssh --delete ~/metricbeat/metricbeat-$metricbeat_VERSION-linux-x86_64-system-and-kafka root@$nodename:/root/metricbeat
     rsync -rv -e ssh --delete ~/metricbeat/script root@$nodename:/root/metricbeat
 done
 
