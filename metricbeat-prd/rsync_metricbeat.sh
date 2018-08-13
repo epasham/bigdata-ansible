@@ -1,5 +1,8 @@
 #!/bin/sh
 
+bin=`dirname "$this"`
+bin=`cd "$bin"; pwd`
+
 echo ""
 echo ""
 echo "Metricbeat BINARY SYNC START-------------------------------------------------------------------------"
@@ -13,7 +16,10 @@ echo "Metricbeat BINARY SYNC START----------------------------------------------
 #    rsync -rv -e ssh --delete ~/metricbeat/script root@$nodename:/root/metricbeat
 #done
 
-for nodename in mpcollect01 mpcollect02 mpcollect03
+role="serverlist-system-and-kafka"
+export HOSTLIST="${bin}/serverlist/$role"
+
+for nodename in `cat "$HOSTLIST"`;
 do
     echo "Metricbeat BINARY SYNC in $nodename -------------------------------------------------------------------------"
     rsync -rv -e ssh --delete ~/metricbeat/metricbeat-$METRICBEAT_VERSION-linux-x86_64-system-and-kafka root@$nodename:/root/metricbeat
