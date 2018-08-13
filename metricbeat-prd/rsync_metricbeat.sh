@@ -13,8 +13,12 @@ export HOSTLIST="${bin}/serverlist/serverlist-mpalyes"
 for nodename in `cat "$HOSTLIST"`;
 do
     echo "Metricbeat BINARY SYNC in $nodename -------------------------------------------------------------------------"
+    # 임시 시작
     ssh root@$nodename "rm -rf /root/metricbeat"
     ssh root@$nodename "mkdir /root/metricbeat"
+    ssh root@$nodename "mv /root/metricbeat*_64 /root/metricbeat"
+    # 임시 끝
+
     ssh root@$nodename "rm -rf /root/metricbeat/metricbeat"
     ssh root@$nodename "ln -s /root/metricbeat/metricbeat-$METRICBEAT_VERSION-linux-x86_64-system /root/metricbeat/metricbeat"
     rsync -rv -e ssh --delete ~/metricbeat/metricbeat-$METRICBEAT_VERSION-linux-x86_64-system root@$nodename:/root/metricbeat
@@ -27,6 +31,12 @@ export HOSTLIST="${bin}/serverlist/serverlist-system-and-kafka"
 for nodename in `cat "$HOSTLIST"`;
 do
     echo "Metricbeat BINARY SYNC in $nodename -------------------------------------------------------------------------"
+    # 임시 시작
+    ssh root@$nodename "rm -rf /root/metricbeat"
+    ssh root@$nodename "mkdir /root/metricbeat"
+    ssh root@$nodename "mv /root/metricbeat*_64 /root/metricbeat"
+    # 임시 끝
+
     ssh root@$nodename "rm -rf /root/metricbeat/metricbeat"
     ssh root@$nodename "ln -s /root/metricbeat/metricbeat-$METRICBEAT_VERSION-linux-x86_64-system-and-kafka /root/metricbeat/metricbeat"
     rsync -rv -e ssh --delete ~/metricbeat/metricbeat-$METRICBEAT_VERSION-linux-x86_64-system-and-kafka root@$nodename:/root/metricbeat
