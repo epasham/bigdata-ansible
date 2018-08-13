@@ -5,32 +5,40 @@
     metricbeat_version: 6.3.2
 
   tasks:
-    - name : create metricbeat directory
-      file:
-        path:  "{{ metricbeat_binary_path }}"
-        state: directory
-
-    - name : create metricbeat binary directory
-      file:
-        path:  "{{ metricbeat_binary_path }}/binary"
-        state: directory
-
-    - name : delete metricbeat directory
-      file:
-        path: "{{ metricbeat_binary_path }}/metricbeat-{{metricbeat_version}}"
-        state: absent
-
-    - name: download official metricbeat binary
-      get_url:
-        url: "https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-{{metricbeat_version}}-linux-x86_64.tar.gz"
-        dest: "{{ metricbeat_binary_path }}/binary"
-        mode: 0755
-        force: no
+#    - name : create metricbeat directory
+#      file:
+#        path:  "{{ metricbeat_binary_path }}"
+#        state: directory
+#
+#    - name : create metricbeat binary directory
+#      file:
+#        path:  "{{ metricbeat_binary_path }}/binary"
+#        state: directory
+#
+#    - name : delete metricbeat directory
+#      file:
+#        path: "{{ metricbeat_binary_path }}/metricbeat-{{metricbeat_version}}"
+#        state: absent
+#
+#    - name: download official metricbeat binary
+#      get_url:
+#        url: "https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-{{metricbeat_version}}-linux-x86_64.tar.gz"
+#        dest: "{{ metricbeat_binary_path }}/binary"
+#        mode: 0755
+#        force: no
 
     - name : extract metricbeat binary
       unarchive:
         src: "{{metricbeat_binary_path}}/binary/metricbeat-{{metricbeat_version}}-linux-x86_64.tar.gz"
         dest: "{{ metricbeat_binary_path }}"
+
+    - name : delete metricbeat each directory
+      file:
+        path: "{{ metricbeat_binary_path }}/metricbeat-{{metricbeat_version}}-linux-x86_64-{{item}}"
+        state: absent
+      - system
+      - system-and-kafka
+      - system-and-zookeeper
 
     - name: "copy metricbeat dir"
       command: "cp -r {{ metricbeat_binary_path }}/metricbeat-{{metricbeat_version}}-linux-x86_64 {{ metricbeat_binary_path }}/metricbeat-{{metricbeat_version}}-linux-x86_64-{{item}}"
