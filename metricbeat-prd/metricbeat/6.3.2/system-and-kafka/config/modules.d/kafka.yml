@@ -1,6 +1,6 @@
 - module: kafka
   metricsets: ["partition"]
-  period: 10s
+  period: 60s
   hosts: ["localhost:9092"]
 
   #client_id: metricbeat

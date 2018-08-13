@@ -1,5 +1,5 @@
 - module: system
-  period: 10s
+  period: 60s
   metricsets:
     - cpu
     - load
