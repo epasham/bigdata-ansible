@@ -37,6 +37,7 @@
       with_items:
       - system
       - system-and-kafka
+      - system-and-zookeeper
 
     - name: "synchronize metricbeat metricbeat.yml"
       synchronize:
@@ -45,6 +46,7 @@
       with_items:
       - system
       - system-and-kafka
+      - system-and-zookeeper
 
     - name: "synchronize metricbeat modules.d"
       synchronize:
@@ -53,6 +55,7 @@
       with_items:
       - system
       - system-and-kafka
+      - system-and-zookeeper
 
     - name: "synchronize script"
       synchronize:
