@@ -118,6 +118,7 @@ indices.requests.cache.size: 10%
 xpack.security.enabled: false
 xpack.ml.enabled: false
 xpack.monitoring.collection.enabled: true
+xpack.watcher.enabled: false
 
 cluster.routing.allocation.node_concurrent_recoveries: 20
 cluster.routing.allocation.node_initial_primaries_recoveries: 40
