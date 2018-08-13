@@ -11,15 +11,15 @@ This is tested on below environment.
 
 ## prepare
 
-This script creates metricbeat binary.
+This script creates metricbeat binary. This scrips builds system only binary and system/kafka binary and so on.
 
     $ ./make_metric_binary.sh
 
 ## sync
 
-This script sends metricbeat binary and script to server lists written in **serverlist/serverlist_sample**. This sends metricbeat binary to root@nodes written in serverlist_sample using SSH. This binary will use metricbeat.yml defined in **config/metricbeat.yml**
+This script sends metricbeat binary and script to each server.
 
-    $ ./sync.sh sample
+    $ ./rsync_metricbeat.sh
     
 ## start & stop
 
