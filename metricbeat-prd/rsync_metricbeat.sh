@@ -26,6 +26,7 @@ do
     ssh root@$nodename "ln -s /root/metricbeat/metricbeat-$METRICBEAT_VERSION-linux-x86_64-system-and-kafka /root/metricbeat/metricbeat"
     rsync -rv -e ssh --delete ~/metricbeat/metricbeat-$METRICBEAT_VERSION-linux-x86_64-system-and-kafka root@$nodename:/root/metricbeat
     rsync -rv -e ssh --delete ~/metricbeat/script root@$nodename:/root/metricbeat
+    ssh root@$nodename "chmod +x /root/metricbeat/script/*.sh"
 done
 
 echo "-------------------------------------------------------------------end  `date +%Y/%m/%d-%H:%M`"
