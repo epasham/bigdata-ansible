@@ -5,7 +5,7 @@ bin=`cd "$bin"; pwd`
 export SERVERLIST="${bin}/serverlist/serverlist-$1"
 
 for server in `cat "$SERVERLIST"`; do
-  ssh $server "ps -ef | grep metricbeat"
+  ssh root@$server "ps -ef | grep metricbeat"
 done
 
 wait
