@@ -51,11 +51,11 @@ export HOSTLIST="${bin}/serverlist/serverlist-toros"
 for nodename in `cat "$HOSTLIST"`;
 do
     echo "Metricbeat BINARY SYNC in $nodename -------------------------------------------------------------------------"
-    # 임시 시작
-    ssh root@$nodename "rm -rf /root/metricbeat"
-    ssh root@$nodename "mkdir /root/metricbeat"
-    ssh root@$nodename "mv /root/metricbeat*_64 /root/metricbeat"
-    # 임시 끝
+    # temp start
+#    ssh root@$nodename "rm -rf /root/metricbeat"
+#    ssh root@$nodename "mkdir /root/metricbeat"
+#    ssh root@$nodename "mv /root/metricbeat*_64 /root/metricbeat"
+    # temp end
 
     ssh root@$nodename "rm -rf /root/metricbeat/metricbeat"
     ssh root@$nodename "ln -s /root/metricbeat/metricbeat-$METRICBEAT_VERSION-linux-x86_64-system /root/metricbeat/metricbeat"
