@@ -1,2 +1,4 @@
 - module: kafka
   hosts: ["localhost:9092"]
+  period: 60s
+  enabled: true
