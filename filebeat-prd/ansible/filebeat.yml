@@ -32,6 +32,16 @@
         src: "{{filebeat_binary_path}}/binary/filebeat-{{filebeat_version}}-linux-x86_64.tar.gz"
         dest: "{{ filebeat_binary_path }}"
 
+    - name : delete filebeat each directory
+      file:
+        path: "{{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}"
+        state: absent
+      with_items:
+      - es-master
+      - es-master-and-data
+      - es-client-and-kibana
+      - nifi
+
     - name: "copy filebeat dir"
       command: "cp -r {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64 {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}"
       with_items:
