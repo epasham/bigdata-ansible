@@ -36,6 +36,7 @@
       file:
         path: "{{ metricbeat_binary_path }}/metricbeat-{{metricbeat_version}}-linux-x86_64-{{item}}"
         state: absent
+      with_items:
       - system
       - system-and-kafka
       - system-and-zookeeper
