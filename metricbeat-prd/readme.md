@@ -6,30 +6,20 @@ This is a metricbeat install & start & stop script.
 
 This is tested on below environment.
 
-- ES 5.5.0
-- metricbeat 6.1.4
+- ES 6.x
+- metricbeat 6.x
 
 ## prepare
 
-This script extract metricbeat binary
+This script creates metricbeat binary.
 
-    $ ./prepare.sh
+    $ ./make_metric_binary.sh
 
 ## sync
 
 This script sends metricbeat binary and script to server lists written in **serverlist/serverlist_sample**. This sends metricbeat binary to root@nodes written in serverlist_sample using SSH. This binary will use metricbeat.yml defined in **config/metricbeat.yml**
 
     $ ./sync.sh sample
-    
-## sync with extension module
-
-This script sends metricbeat binary and script to server lists written in **serverlist/serverlist_sample**. This sends metricbeat binary to root@nodes written in serverlist_sample using SSH. This binary will use metricbeat.yml defined in **config/metricbeat.yml**
-Also, This will sync **config/modules.d/zookeeper.yml.diabled** so you can synchronize configuration to **serverlist/serverlist_sample**. After synchronization the script enables module automatically.
-
-For now, you can execute sync.sh multiple times to enable multiple extension module. I know this is an inefficient way, but I keep this way until I have more time to enhanced this.
-
-    $ ./sync.sh sample zookeeper
-    $ ./sync.sh sample apache
     
 ## start & stop
 
