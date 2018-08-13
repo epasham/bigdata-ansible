@@ -5,7 +5,7 @@ bin=`cd "$bin"; pwd`
 export SERVERLIST="${bin}/serverlist/serverlist_$1"
 
 for server in `cat "$SERVERLIST"`; do
-  ssh $server "sh /root/metricbeat/sbin/start.sh"
+  ssh $server "sh /root/metricbeat/metricbeat/sbin/start.sh"
 done
 
 wait
