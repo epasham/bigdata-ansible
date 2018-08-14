@@ -10,6 +10,11 @@
         path: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64"
         state: absent
 
+    - name: Check Kibana Binary exists
+      stat:
+        path: "{{es_binary_path}}/binary/kibana-{{kibana_version}}-linux-x86_64.tar.gz"
+      register: stat_result
+
     - name: "download kibana binary"
       get_url:
         url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{kibana_version}}-linux-x86_64.tar.gz"
