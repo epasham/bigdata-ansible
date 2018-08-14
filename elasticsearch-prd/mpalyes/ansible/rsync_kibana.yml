@@ -1,0 +1,11 @@
+- name: rsync-kibana
+  hosts: all
+  vars:
+    es_binary_path: ~/elasticsearch
+    kibana_version: 6.3.2
+
+  tasks:
+    - name: Synchronization using rsync protocol (push)
+      synchronize:
+        src: {{es_binary_path}}/kibana-{{KIBANA_VERSION}}-plain-linux-x86_64
+        dest: rsync://hadoop@mpalyes10:/home/hadoop/elasticsearch/kibana
