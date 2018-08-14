@@ -16,35 +16,57 @@
         dest: "{{es_binary_path}}/binary"
         mode: 0755
         force: no
+      when: stat_result.stat.exists == False
 
-    - name : "delete kibana directory"
+    - name : delete kibana directory
       file:
-        path: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64"
+        path: "{{ es_binary_path }}/kibana-{{kibana_version}}-{{item}}-linux-x86_64"
         state: absent
+      with_items:
+      - plain
+      - esc
 
     - name : "extract kibana binary"
       unarchive:
         src: "{{es_binary_path}}/binary/kibana-{{kibana_version}}-linux-x86_64.tar.gz"
         dest: "{{es_binary_path}}"
 
+    - name: "copy kibana dir"
+      command: "cp -r {{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64 {{ es_binary_path }}/kibana-{{kibana_version}}-{{item}}-linux-x86_64"
+      with_items:
+      - plain
+      - esc
+
     - name: "synchronize kibana config"
       synchronize:
-        src: ../kibana/{{kibana_version}}/config
-        dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/"
+        src: ../kibana/{{kibana_version}}/config/{{item}}/kibana.yml
+        dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-{{item}}-linux-x86_64/config/kibana.yml"
+      with_items:
+      - plain
+      - esc
 
-    - name: "download x-pack binary"
-      get_url:
-        url: "https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-{{kibana_version}}.zip"
-        dest: "{{es_binary_path}}/binary"
-        mode: 0755
-        force: no
-
-    - name: "extract kibana plugins"
-      unarchive:
-        src: "{{es_binary_path}}/binary/x-pack-{{kibana_version}}.zip"
-        dest: "{{es_binary_path}}/binary/"
-
-    - name: "synchronize kibana plugin"
-      synchronize:
-        src: "{{es_binary_path}}/binary/kibana/"
-        dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-linux-x86_64/plugins/"
+#    - name: Check Kibana Binary exists
+#      stat:
+#        path: "{{es_binary_path}}/binary/x-pack-{{kibana_version}}.zip"
+#      register: stat_result2
+#
+#    - name: "download x-pack binary"
+#      get_url:
+#        url: "https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-{{kibana_version}}.zip"
+#        dest: "{{es_binary_path}}/binary"
+#        mode: 0755
+#        force: no
+#      when: stat_result2.stat.exists == False
+#
+#    - name: "extract kibana plugins"
+#      unarchive:
+#        src: "{{es_binary_path}}/binary/x-pack-{{kibana_version}}.zip"
+#        dest: "{{es_binary_path}}/binary/"
+#
+#    - name: "synchronize kibana plugin"
+#      synchronize:
+#        src: "{{es_binary_path}}/binary/kibana/"
+#        dest: "{{ es_binary_path }}/kibana-{{kibana_version}}-{{item}}-linux-x86_64/plugins/"
+#      with_items:
+#      - plain
+#      - esc

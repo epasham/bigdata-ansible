@@ -55,10 +55,10 @@
         src: "../elasticsearch/{{es_version}}/config/{{item}}/config"
         dest: "{{ es_binary_path }}/elasticsearch-{{es_version}}-{{item}}/"
       with_items:
-              - master
-              - data
-              - data2
-              - client
+        - master
+        - data
+        - data2
+        - client
 
     - name: "synchronize elasticsearch plugins"
       synchronize:
