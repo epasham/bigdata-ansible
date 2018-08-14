@@ -13,7 +13,7 @@ ssh hadoop@$NODE "rm -rf /home/hadoop/elasticsearch/kibana"
 ssh hadoop@$NODE "ln -s /home/hadoop/elasticsearch/kibana-$KIBANA_VERSION-$ROLE-linux-x86_64 /home/hadoop/elasticsearch/kibana"
 rsync -rv -e ssh --delete ~/elasticsearch/kibana-$KIBANA_VERSION-$ROLE-linux-x86_64 hadoop@$NODE:/home/hadoop/elasticsearch
 
-export ROLE=plain
+export ROLE=esc
 export NODE=mpalyes11
 ssh hadoop@$NODE "rm -rf /home/hadoop/elasticsearch/kibana"
 ssh hadoop@$NODE "ln -s /home/hadoop/elasticsearch/kibana-$KIBANA_VERSION-$ROLE-linux-x86_64 /home/hadoop/elasticsearch/kibana"
