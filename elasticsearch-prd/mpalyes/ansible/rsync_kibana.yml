@@ -8,4 +8,4 @@
     - name: Synchronization using rsync protocol (push)
       synchronize:
         src: "{{es_binary_path}}/kibana-{{kibana_version}}-plain-linux-x86_64"
-        dest: rsync://hadoop@mpalyes10:/home/hadoop/elasticsearch/kibana
+        dest: rsync://hadoop@mpalyes10/home/hadoop/elasticsearch/kibana
