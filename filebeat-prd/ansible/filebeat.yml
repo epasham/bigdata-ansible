@@ -39,6 +39,7 @@
       with_items:
       - es-master
       - es-master-and-data
+      - es-data
       - es-client-and-kibana
       - nifi
 
@@ -47,6 +48,7 @@
       with_items:
       - es-master
       - es-master-and-data
+      - es-data
       - es-client-and-kibana
       - nifi
 
@@ -57,6 +59,7 @@
       with_items:
       - es-master
       - es-master-and-data
+      - es-data
       - es-client-and-kibana
       - nifi
 
