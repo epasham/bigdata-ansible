@@ -2,7 +2,8 @@
 version: '2'
 services:
   server:
-    image: lks21c/redash:5.0.0-beta
+#    image: lks21c/redash:5.0.0-beta
+    image: lks21c/redash:4.0.1
     command: server
     depends_on:
       - postgres
@@ -23,7 +24,8 @@ services:
       NLS_LANG: "AMERICAN_AMERICA.AL32UTF8"
     restart: always
   worker:
-    image: lks21c/redash:5.0.0-beta
+#    image: lks21c/redash:5.0.0-beta
+    image: lks21c/redash:4.0.1
     command: scheduler
     environment:
       PYTHONUNBUFFERED: 0
