@@ -59,4 +59,14 @@ do
     rsync -rv -e ssh --delete ~/filebeat/script root@$nodename:/root/filebeat
 done
 
+export HOSTLIST="${bin}/serverlist/serverlist-s2graph"
+for nodename in `cat "$HOSTLIST"`;
+do
+    echo "Filebeat BINARY SYNC es in $nodename -------------------------------------------------------------------------"
+    ssh root@$nodename "rm -rf /root/filebeat/filebeat"
+    ssh root@$nodename "ln -s /root/filebeat/filebeat-$FILEBEAT_VERSION-linux-x86_64-s2graph /root/filebeat/filebeat"
+    rsync -rv -e ssh --delete ~/filebeat/filebeat-$FILEBEAT_VERSION-linux-x86_64-s2graph root@$nodename:/root/filebeat
+    rsync -rv -e ssh --delete ~/filebeat/script root@$nodename:/root/filebeat
+done
+
 echo "-------------------------------------------------------------------end  `date +%Y/%m/%d-%H:%M`"

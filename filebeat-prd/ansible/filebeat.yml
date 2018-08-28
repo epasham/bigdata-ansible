@@ -42,6 +42,7 @@
       - es-data
       - es-client-and-kibana
       - nifi
+      - s2graph
 
     - name: "copy filebeat dir"
       command: "cp -r {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64 {{ filebeat_binary_path }}/filebeat-{{filebeat_version}}-linux-x86_64-{{item}}"
@@ -51,6 +52,7 @@
       - es-data
       - es-client-and-kibana
       - nifi
+      - s2graph
 
     - name: "synchronize filebeat config"
       synchronize:
@@ -62,6 +64,7 @@
       - es-data
       - es-client-and-kibana
       - nifi
+      - s2graph
 
     - name: "synchronize script"
       synchronize:
