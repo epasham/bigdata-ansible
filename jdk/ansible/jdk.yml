@@ -33,7 +33,7 @@
     # structure is created using numerical values for these.
     - name: Unpack Java JDK
       unarchive:
-        src: ~/repo/bigdata-ansible/jdk/{{ java_archive_name }}
+        src: /hanmail/repo/bigdata-ansible/jdk/{{ java_archive_name }}
         dest: "{{ java_root_dir }}"
         copy: no
         owner: root
