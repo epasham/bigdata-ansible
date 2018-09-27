@@ -13,15 +13,13 @@
       register: dir
 
     - name : Download Java JDK
-      command: 'cd /tmp && wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.tar.gz"'
+      command: 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.tar.gz'
 
     - name: Create Java directory
       file:
         name: "{{ java_root_dir }}"
         state: directory
       when: dir.stat.exists == False
-      tags:
-        - java_install
 
     # Untar the downloaded Java archive. The owner and group must be set otherwise the folder
     # structure is created using numerical values for these.
@@ -33,8 +31,6 @@
         owner: root
         group: root
       when: dir.stat.exists == False
-      tags:
-        - java_install
 
     # Use the alternatives command to install the appropriate links to the executables in the PATH.
     # Alternatives allows multiple versions of Java to be installed with the correct executable
@@ -44,16 +40,12 @@
         name: java
         link: /usr/bin/java
         path: '{{ java_jdk_dir }}/bin/java'
-      tags:
-        - java_install_alternatives
 
     # Cleanup install by deleting downloaded Java archive
     - name: Delete Java JDK tar.gz file
       file:
         path: /tmp/{{ java_archive_name }}
         state: absent
-      tags:
-        - java_cleanup
 
     # Set Ansible fact that Java has completed installation. This is so that this role can be used in
     # other dependent roles. Those roles can check for this fact to determine whether or not this role
@@ -61,5 +53,3 @@
     - name: Set fact java_8_installed
       set_fact:
         java_8_installed: true
-      tags:
-        - java_install
