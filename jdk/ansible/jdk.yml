@@ -12,14 +12,14 @@
         path: '{{ java_jdk_dir }}'
       register: dir
 
-    #- name: Download Java JDK
-    #  get_url:
-    #    url: "{{ java_download_url }}"
-    #    headers: "Cookie:oraclelicense=accept-securebackup-cookie"
-    #    dest: /tmp/{{ java_archive_name }}
-    #  when: dir.stat.exists == False
-    #  tags:
-    #    - java_install
+    - name: Download Java JDK
+      get_url:
+        url: "{{ java_download_url }}"
+        headers: "Cookie:oraclelicense=accept-securebackup-cookie"
+        dest: /tmp/{{ java_archive_name }}
+      when: dir.stat.exists == False
+      tags:
+        - java_install
 
     - name: Create Java directory
       file:
