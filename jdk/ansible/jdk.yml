@@ -13,14 +13,14 @@
       register: dir
 
     - name: download official binary
-        get_url:
-          url: "{{ java_download_url }}"
-          mode: 0755
-          force: no
-          dest: /tmp/{{ java_archive_name }}
-        when: dir.stat.exists == False
-        tags:
-          - java_install
+      get_url:
+        url: "{{ java_download_url }}"
+        mode: 0755
+        force: no
+        dest: /tmp/{{ java_archive_name }}
+      when: dir.stat.exists == False
+      tags:
+        - java_install
 
 
     - name: Create Java directory
