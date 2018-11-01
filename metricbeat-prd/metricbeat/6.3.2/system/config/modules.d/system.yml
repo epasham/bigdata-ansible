@@ -11,7 +11,7 @@
 #    - socket
 
 - module: system
-  period: 1m
+  period: 5m
   metricsets:
     - filesystem
     - fsstat
@@ -25,7 +25,7 @@
     - uptime
 
 - module: system
-  period: 1m
+  period: 5m
   metricsets: ["diskio"]
   diskio.include_devices: []
 
