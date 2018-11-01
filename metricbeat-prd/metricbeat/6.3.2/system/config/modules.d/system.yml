@@ -24,6 +24,11 @@
   metricsets:
     - uptime
 
+- module: system
+  period: 1m
+  metricsets: ["diskio"]
+  diskio.include_devices: []
+
 #- module: system
 #  period: 5m
 #  metricsets:
