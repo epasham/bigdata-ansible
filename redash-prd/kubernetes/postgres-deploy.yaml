@@ -14,4 +14,11 @@ spec:
       containers:
       - image: postgres:10.5-alpine
         name: postgres-deploy
+        volumeMounts:
+        - mountPath: "/data"
+          name: postgres-vol
+      volumes:
+      - name: postgres-vol
+        persistentVolumeClaim:
+          claimName: postgres-pvc
       restartPolicy: Always
