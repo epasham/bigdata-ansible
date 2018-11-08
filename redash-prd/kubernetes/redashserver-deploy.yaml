@@ -38,26 +38,6 @@ spec:
         - name: NLS_LANG
           value: "AMERICAN_AMERICA.AL32UTF8"
 
-        - name: REDASH_LDAP_ONLY_LOGIN
-          value: "true"
-        - name: REDASH_PASSWORD_LOGIN_ENABLED
-          value: "false"
-        - name: REDASH_LDAP_LOGIN_ENABLED
-          value: "true"
-        - name: REDASH_LDAP_URL
-          value: "ldap://ldap.kakaocorp.com:389"
-        - name: REDASH_LDAP_BIND_DN
-          value: "cn=melon_data, ou=members,o=identitymaster"
-        - name: REDASH_LDAP_BIND_DN_PASSWORD
-          value: "bigdata!123"
-        - name: REDASH_LDAP_DISPLAY_NAME_KEY
-          value: "displayName"
-        - name: REDASH_LDAP_EMAIL_KEY
-          value: "mail"
-        - name: REDASH_LDAP_DEPT_NAME
-          value: "deptName"
-        - name: REDASH_SEARCH_DN
-          value: "ou=members, o=identitymaster"
         image: lks21c/redash:5.0.1
         name: redashserver-deploy
         ports:
