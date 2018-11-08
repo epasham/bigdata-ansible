@@ -6,10 +6,8 @@ metadata:
   name: server
 spec:
   replicas: 1
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: server
     spec:
@@ -33,6 +31,4 @@ spec:
         name: server
         ports:
         - containerPort: 5000
-        resources: {}
       restartPolicy: Always
-status: {}
