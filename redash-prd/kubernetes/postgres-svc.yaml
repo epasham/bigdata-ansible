@@ -5,10 +5,10 @@ metadata:
     io.kompose.service: postgres
   name: postgres-svc
 spec:
-  clusterIP: None
+  clusterIP: 10.231.21.86
   ports:
   - name: headless
-    port: 55555
-    targetPort: 0
+    port: 5432
+    targetPort: 5432
   selector:
     io.kompose.service: postgres-deploy
