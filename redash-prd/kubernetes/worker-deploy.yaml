@@ -1,10 +1,6 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.1.0 (36652f6)
-  creationTimestamp: null
   labels:
     io.kompose.service: worker
   name: worker
@@ -26,14 +22,26 @@ spec:
         - name: QUEUES
           value: queries,scheduled_queries,celery
         - name: REDASH_DATABASE_URL
-          value: postgresql://postgres@postgres/postgres
+          value: postgresql://postgres@postgres-svc/postgres
         - name: REDASH_LOG_LEVEL
           value: INFO
         - name: REDASH_REDIS_URL
-          value: redis://redis:6379/0
+          value: redis://redis-svc:6379/0
         - name: WORKERS_COUNT
           value: "2"
-        image: lks21c/redash:5.0.1.b4850
+        - name: REDASH_ADDITIONAL_QUERY_RUNNERS
+          value: redash.query_runner.oracle,redash.query_runner.python
+        - name: LD_LIBRARY_PATH
+          value: /usr/lib/oracle/12.2/client64/lib/
+        - name: ORACLE_HOME
+          value: /usr/lib/oracle/12.2/client64
+        - name: LANG
+          value: "en_US.UTF-8"
+        - name: NLS_LANG
+          value: "AMERICAN_AMERICA.AL32UTF8"
+        - name: C_FORCE_ROOT
+          value: "true"
+        image: lks21c/redash:5.0.1
         name: worker
         resources: {}
       restartPolicy: Always

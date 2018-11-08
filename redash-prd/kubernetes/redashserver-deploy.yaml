@@ -24,9 +24,40 @@ spec:
         - name: REDASH_LOG_LEVEL
           value: INFO
         - name: REDASH_REDIS_URL
-          value: redis://redis:6379/0
+          value: redis://redis-svc:6379/0
         - name: REDASH_WEB_WORKERS
           value: "4"
+        - name: REDASH_ADDITIONAL_QUERY_RUNNERS
+          value: redash.query_runner.oracle,redash.query_runner.python
+        - name: LD_LIBRARY_PATH
+          value: /usr/lib/oracle/12.2/client64/lib/
+        - name: ORACLE_HOME
+          value: /usr/lib/oracle/12.2/client64
+        - name: LANG
+          value: "en_US.UTF-8"
+        - name: NLS_LANG
+          value: "AMERICAN_AMERICA.AL32UTF8"
+
+        - name: REDASH_LDAP_ONLY_LOGIN
+          value: "true"
+        - name: REDASH_PASSWORD_LOGIN_ENABLED
+          value: "false"
+        - name: REDASH_LDAP_LOGIN_ENABLED
+          value: "true"
+        - name: REDASH_LDAP_URL
+          value: "ldap://ldap.kakaocorp.com:389"
+        - name: REDASH_LDAP_BIND_DN
+          value: "cn=melon_data, ou=members,o=identitymaster"
+        - name: REDASH_LDAP_BIND_DN_PASSWORD
+          value: "bigdata!123"
+        - name: REDASH_LDAP_DISPLAY_NAME_KEY
+          value: "displayName"
+        - name: REDASH_LDAP_EMAIL_KEY
+          value: "mail"
+        - name: REDASH_LDAP_DEPT_NAME
+          value: "deptName"
+        - name: REDASH_SEARCH_DN
+          value: "ou=members, o=identitymaster"
         image: lks21c/redash:5.0.1
         name: redashserver-deploy
         ports:
