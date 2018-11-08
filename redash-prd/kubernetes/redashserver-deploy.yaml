@@ -20,7 +20,7 @@ spec:
         - name: REDASH_COOKIE_SECRET
           value: veryverysecret
         - name: REDASH_DATABASE_URL
-          value: postgresql://postgres@postgres/postgres
+          value: postgresql://postgres@postgres-svc/postgres
         - name: REDASH_LOG_LEVEL
           value: INFO
         - name: REDASH_REDIS_URL

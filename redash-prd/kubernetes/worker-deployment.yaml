@@ -33,7 +33,7 @@ spec:
           value: redis://redis:6379/0
         - name: WORKERS_COUNT
           value: "2"
-        image: lks21c/redash:5.0.1
+        image: lks21c/redash:5.0.1.b4850
         name: worker
         resources: {}
       restartPolicy: Always
