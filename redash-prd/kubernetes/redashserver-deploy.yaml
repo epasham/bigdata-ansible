@@ -2,14 +2,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    io.kompose.service: server
-  name: server
+    io.kompose.service: redashserver-deploy
+  name: redashserver-deploy
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        io.kompose.service: server
+        io.kompose.service: redashserver-deploy
     spec:
       containers:
       - args:
@@ -28,7 +28,7 @@ spec:
         - name: REDASH_WEB_WORKERS
           value: "4"
         image: lks21c/redash:5.0.1
-        name: server
+        name: redashserver-deploy
         ports:
         - containerPort: 5000
       restartPolicy: Always
