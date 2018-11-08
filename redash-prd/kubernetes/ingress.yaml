@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: alyredash-ingress
+  namespace: default
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: dkosv3-alyredashprd-ingress-1.pg1.krane.9rum.cc
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: redashserver-svc
+          servicePort: 5000

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: server
+  name: redashserver-svc
+spec:
+  clusterIP: 10.231.21.84
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    io.kompose.service: server

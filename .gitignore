@@ -1,2 +1,4 @@
 .idea
 atlas-prd/binary
+.DS_Store
+*.retry
